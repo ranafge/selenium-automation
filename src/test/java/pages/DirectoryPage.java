@@ -2,6 +2,9 @@ package pages;
 
 import com.org.baseClass.BaseClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -56,16 +59,19 @@ public class DirectoryPage extends BaseClass {
         Thread.sleep(2000);
         locationDropdownMenu.click();
         Thread.sleep(2000);
-
-        for(WebElement element: locations) {
-            if(Objects.equals(element.getText(), "HQ - CA, USA")){
-                element.click();
-            }
+//
+//        for(WebElement element: locations) {
+//            if(Objects.equals(element.getText(), "HQ - CA, USA")){
+//                element.click();
+//            }
+//        }
+//
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        for( int i =0; i < locations.size(); i++) {
+            js.executeScript("arguments[0].click()", locations.get(i));
         }
 
-
-
-//        locationSearchButton.click();
+        locationSearchButton.click();
 
 
         return new DirectoryPage();
