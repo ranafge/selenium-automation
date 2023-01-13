@@ -2,11 +2,20 @@ package pages;
 
 import com.org.baseClass.BaseClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.*;
+import utils.TimeOut;
 
+import java.sql.Time;
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class DirectoryPage extends BaseClass {
     @FindBy(xpath = "//span/h6[contains(., \"Directory\")]")
@@ -20,14 +29,19 @@ public class DirectoryPage extends BaseClass {
     WebElement loginButton;
     @FindBy(xpath = "//li/a[contains(@href, \"Directory\")]")
     WebElement directoryLink;
-    @FindBy(xpath = "//label[contains(text(), \"Location\")]/following::div[3]")
-    WebElement locationUsa;
+    // CLICK ON LOCATION MENTU
     @FindBy(xpath = "//label[contains(text(),'Location')]/following::div[3]")
     WebElement locationDropdownMenu;
-    @FindBy(css ="[role=\"listbox\"]")
-    List <WebElement> locations;
-    @FindBy(css = "[tabindex=\"0\"]")
+    // ALL LOCATIONS FORM LOCATION MENTU
+
+    @FindBy(className = "oxd-select-option")
+    List<WebElement> locations;
+    // ONE ELEMENT FORM LOCATION MENTU
+    @FindBy(css = "//*[contains(text(), \"HQ - CA, USA\")]")
     WebElement locationHqUsa;
+    //Click on search Button
+    @FindBy(xpath = "//div[@class=\"oxd-form-actions\"]/button[contains(text(), \"Search\")]")
+    WebElement locationSearchButton;
 
     public DirectoryPage() {
         super();
@@ -39,17 +53,19 @@ public class DirectoryPage extends BaseClass {
         inputPassword.sendKeys(password);
         loginButton.click();
         directoryLink.click();
+        Thread.sleep(2000);
         locationDropdownMenu.click();
-        Thread.sleep(10000);
-        for(WebElement e: locations) {
-            if(e.getText() == "HQ - CA, USA") {
-                e.click();
-                System.out.println(e.getText());
+        Thread.sleep(2000);
+
+        for(WebElement element: locations) {
+            if(Objects.equals(element.getText(), "HQ - CA, USA")){
+                element.click();
             }
-
         }
-        Thread.sleep(4000);
 
+
+
+//        locationSearchButton.click();
 
 
         return new DirectoryPage();
@@ -61,9 +77,5 @@ public class DirectoryPage extends BaseClass {
         return directoryText.isDisplayed();
     }
 
-    public void directoryLocationVerify(){
-//        return locationHqUsa.getText().contains("HQ - CA, USA");
-        System.out.println(locationHqUsa.getText());
-    }
 
 }

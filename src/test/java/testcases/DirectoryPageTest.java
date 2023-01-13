@@ -30,8 +30,8 @@ public class DirectoryPageTest extends BaseClass {
     public void loginWithCredentials() throws InterruptedException {
         directoryPage = new DirectoryPage()
                 .login(getUserName(), getPassword());
-        new DirectoryPage().directoryLocationVerify();
         Assert.assertTrue(directoryPage.directoryTextVerify());
+//        new DirectoryPage().directoryTextVerify();
 //        Assert.assertTrue(directoryPage.directoryLocationVerify());
     }
 
