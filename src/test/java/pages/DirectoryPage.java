@@ -1,7 +1,6 @@
 package pages;
 
 import com.org.baseClass.BaseClass;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -24,10 +23,20 @@ public class DirectoryPage extends BaseClass {
     WebElement locationUsa;
     @FindBy(xpath = "//label[contains(text(),'Location')]/following::div[3]")
     WebElement locationDropdownMenu;
-    @FindBy(css ="[role=\"listbox\"]")
-    List <WebElement> locations;
+    @FindBy(css = "[role=\"listbox\"]")
+    List<WebElement> locations;
     @FindBy(css = "[tabindex=\"0\"]")
     WebElement locationHqUsa;
+    @FindBy(xpath = "(//button)[4]")
+    WebElement locationSearchButton;
+    @FindBy(xpath = "(//div[@class=\"oxd-select-text-input\"])[2]")
+    WebElement locationInputField;
+    @FindBy(xpath = "(//div[@class=\"oxd-select-dropdown --positon-bottom\"]/div)[3]/span")
+    WebElement hqcausa;
+    @FindBy(xpath = "(//div[@class=\"oxd-select-dropdown --positon-bottom\"]/div)[4]/span")
+    WebElement newYorkSaleOffice;
+    @FindBy(xpath = "//div[@class=\"orangehrm-horizontal-padding orangehrm-vertical-padding\"]/span")
+    WebElement numberOfRecord;
 
     public DirectoryPage() {
         super();
@@ -40,30 +49,28 @@ public class DirectoryPage extends BaseClass {
         loginButton.click();
         directoryLink.click();
         locationDropdownMenu.click();
-        Thread.sleep(10000);
-        for(WebElement e: locations) {
-            if(e.getText() == "HQ - CA, USA") {
-                e.click();
-                System.out.println(e.getText());
-            }
-
-        }
+        Thread.sleep(1000);
+        hqcausa.click();
         Thread.sleep(4000);
-
-
-
+        locationSearchButton.click();
+        Thread.sleep(4000);
+        super.scrollDown();
+        Thread.sleep(3000);
         return new DirectoryPage();
     }
 
-//    public
 
+    // verify we are in directory page
     public boolean directoryTextVerify() {
         return directoryText.isDisplayed();
     }
 
-    public void directoryLocationVerify(){
-//        return locationHqUsa.getText().contains("HQ - CA, USA");
-        System.out.println(locationHqUsa.getText());
+    // verify we found number of record for search item  of HQ-CA-USA
+    public boolean hqcaUsaRecordVerify() {
+        boolean contains = numberOfRecord.getText().contains("(6) Records Found");
+        System.out.println("Trying to find \"(6) Records Found\" ");
+        System.out.println(numberOfRecord.getText());
+        return contains;
     }
 
 }

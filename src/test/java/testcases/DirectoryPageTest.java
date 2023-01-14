@@ -31,8 +31,7 @@ public class DirectoryPageTest extends BaseClass {
         directoryPage = new DirectoryPage()
                 .login(getUserName(), getPassword());
         Assert.assertTrue(directoryPage.directoryTextVerify());
-//        new DirectoryPage().directoryTextVerify();
-//        Assert.assertTrue(directoryPage.directoryLocationVerify());
+        Assert.assertTrue(directoryPage.hqcaUsaRecordVerify());
     }
 
 
