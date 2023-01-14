@@ -1,5 +1,6 @@
 package com.org.baseClass;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -54,6 +55,13 @@ public class BaseClass {
     }
     public String getPassword() {
         return properties.getProperty("password");
+    }
+
+    public void  scrollDown() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+//Scroll down till the bottom of the page
+        js.executeScript("window.scrollBy(0,document.body.scrollHeight)");
+
     }
 
 

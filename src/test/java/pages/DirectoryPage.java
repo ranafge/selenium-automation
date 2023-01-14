@@ -2,10 +2,13 @@ package pages;
 
 import com.org.baseClass.BaseClass;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 
+import java.time.Duration;
 import java.util.List;
 
 public class DirectoryPage extends BaseClass {
@@ -28,6 +31,8 @@ public class DirectoryPage extends BaseClass {
     List <WebElement> locations;
     @FindBy(css = "[tabindex=\"0\"]")
     WebElement locationHqUsa;
+    @FindBy(xpath = "(//button)[4]")
+    WebElement locationSearchButton;
 
     public DirectoryPage() {
         super();
@@ -40,15 +45,21 @@ public class DirectoryPage extends BaseClass {
         loginButton.click();
         directoryLink.click();
         locationDropdownMenu.click();
-        Thread.sleep(10000);
+
         for(WebElement e: locations) {
-            if(e.getText() == "HQ - CA, USA") {
-                e.click();
-                System.out.println(e.getText());
-            }
+            System.out.println(e.getText());
+            e.click();
 
         }
-        Thread.sleep(4000);
+        Thread.sleep(10000);
+        locationSearchButton.click();
+
+        super.scrollDown();
+        Thread.sleep(10000);
+
+
+
+
 
 
 
